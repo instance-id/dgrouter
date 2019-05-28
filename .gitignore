@@ -3,3 +3,4 @@
 debug
 *.db
 *.db.lock
+\.idea/
