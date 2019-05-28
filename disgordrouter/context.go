@@ -4,8 +4,6 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/andersfylling/snowflake/v3"
-
 	"github.com/andersfylling/disgord"
 
 	"github.com/Necroforger/dgrouter"
@@ -43,8 +41,7 @@ func (c *Context) Get(key string) interface{} {
 
 // Reply replies to the sender with the given message
 func (c *Context) Reply(args ...interface{}) (*disgord.Message, error) {
-	Message, Error := c.Ses.SendMsg(c.Msg.ChannelID, fmt.Sprint(args...))
-	return Message, Error
+	return c.Ses.SendMsg(c.Msg.ChannelID, fmt.Sprint(args...))
 }
 
 // ReplyEmbed replies to the sender with an embed
@@ -58,17 +55,17 @@ func (c *Context) ReplyEmbed(args ...interface{}) (*disgord.Message, error) {
 
 // Guild retrieves a guild from the state or restapi
 func (c *Context) Guild(guildID string) (*disgord.Guild, error) {
-	return c.Ses.GetGuild(snowflake.ParseSnowflakeString(guildID))
+	return c.Ses.GetGuild(disgord.ParseSnowflakeString(guildID))
 }
 
 // Channel retrieves a channel from the state or restapi
 func (c *Context) Channel(channelID string) (*disgord.Channel, error) {
-	return c.Ses.GetChannel(snowflake.ParseSnowflakeString(channelID))
+	return c.Ses.GetChannel(disgord.ParseSnowflakeString(channelID))
 }
 
 // Member retrieves a member from the state or restapi
 func (c *Context) Member(guildID, userID string) (*disgord.Member, error) {
-	return c.Ses.GetMember(snowflake.ParseSnowflakeString(guildID), snowflake.ParseSnowflakeString(userID))
+	return c.Ses.GetMember(disgord.ParseSnowflakeString(guildID), disgord.ParseSnowflakeString(userID))
 }
 
 // NewContext returns a new context from a message
